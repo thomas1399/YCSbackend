@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!-- this is just very ugly html for debugging and testing that everything works, so far i didn't find any errors but if you do, let me know -->
+<body>
+    <h1>Add User</h1>
+    <form method="POST" action="/add_user">
+        <input type="text" name="firstName" placeholder="firstName">
+        <input type="text" name="lastName" placeholder="lastName">
+        <input type="text" name="birthdate" placeholder="birthdate">
+        <input type="text" name="gender" placeholder="gender">
+        <input type="text" name="phone" placeholder="phone">
+        <input type="text" name="email" placeholder="email">
+        <input type="text" name="password" placeholder="password">
+        <input type="submit" value="Add">
+    </form>
+    <h2>Users</h2>
+    {% for user in users %}
+        <p>{{ user.idU }}</p>
+        <form method="POST" action="./update_user">
+            <input type="hidden" value="{{ user.idU }}" name="idU">
+            <input type="text" value="{{ user.firstName }}" name="newfName">
+            <input type="text" value="{{ user.lastName }}" name="newlName">
+            <input type="text" value="{{ user.birthdate }}" name="newbDate">
+            <input type="text" value="{{ user.gender }}" name="newGender">
+            <input type="text" value="{{ user.phone }}" name="newPhone">
+            <input type="text" value="{{ user.email }}" name="newEmail">
+            <input type="text" value="{{ user.password }}" name="newPassword">
+            <input type="text" value="{{ user.right }}" name="newRight">
+            <input type="submit" value="Update">
+        </form>
+        <form method="POST" action="./delete_user">
+            <input type="hidden" value="{{ user.idU }}" name="idU">
+            <input type="submit" value="Delete">
+        </form>
+    </form>
+        <br><br>
+    {% endfor %}
+
+    <h1>Add Survey</h1>
+    <form method="POST" action="/add_survey">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="category" placeholder="category">
+        <input type="text" name="nbOfQuestions" placeholder="nbOfQuestions">
+        <input type="text" name="idU" placeholder="idU">
+        <input type="submit" value="Add">
+    </form>
+    <h2>Surveys</h2>
+        {% for survey in surveys %}
+            <p>{{ survey.idS }}</p>
+            <p>{{ survey.title }}</p>
+            <p>{{ survey.category }}</p>
+            <p>{{ survey.nbOfQuestions }}</p>
+            <p>{{ survey.idU }}</p>
+            <form method="POST" action="./delete_survey">
+                <input type="hidden" value="{{ survey.idS }}" name="idS">
+                <input type="submit" value="Delete">
+            </form>
+        </form>
+            <br><br>
+        {% endfor %}
+    <h1>Add Question</h1>
+    <form method="POST" action="/add_question">
+        <input type="text" name="statement" placeholder="statement">
+        <input type="text" name="number" placeholder="number">
+        <input type="text" name="answer1" placeholder="answer1">
+        <input type="text" name="answer2" placeholder="answer2">
+        <input type="text" name="answer3" placeholder="answer3">
+        <input type="text" name="answer4" placeholder="answer4">
+        <input type="text" name="answer5" placeholder="answer5">
+        <input type="text" name="idS" placeholder="idS">
+        <input type="submit" value="Add">
+    </form>
+    <h2>Questions</h2>
+        {% for question in questions %}
+            <p>{{ question.idQ }}</p>
+            <p>{{ question.statement }}</p>
+            <p>{{ question.number }}</p>
+            <p>{{ question.answer1 }}</p>
+            <p>{{ question.answer2 }}</p>
+            <p>{{ question.answer3 }}</p>
+            <p>{{ question.answer4 }}</p>
+            <p>{{ question.answer5 }}</p>
+            <p>{{ question.idS }}</p>
+            <form method="POST" action="./delete_question">
+                <input type="hidden" value="{{ question.idQ }}" name="idQ">
+                <input type="submit" value="Delete">
+            </form>
+        </form>
+            <br><br>
+        {% endfor %}
+    <h1>Add Vote</h1>
+        <form method="POST" action="/add_vote">
+            <input type="text" name="answer" placeholder="answer">
+            <input type="text" name="idU" placeholder="idU">
+            <input type="text" name="idQ" placeholder="idQ">
+            <input type="submit" value="Add">
+        </form>
+        <h2>Votes</h2>
+            {% for vote in votes %}
+                <p>{{ vote.idV }}</p>
+                <p>{{ vote.answer }}</p>
+                <p>{{ vote.idU }}</p>
+                <p>{{ vote.idQ }}</p>
+
+                <form method="POST" action="./delete_vote">
+                    <input type="hidden" value="{{ vote.idV }}" name="idV">
+                    <input type="submit" value="Delete">
+                </form>
+            </form>
+                <br><br>
+            {% endfor %}
+  </body>
+</html>
